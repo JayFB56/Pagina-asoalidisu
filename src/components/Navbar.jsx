@@ -30,7 +30,7 @@ export default function Navbar() {
           {/* Logo */}
           <a href="#" className="flex items-center gap-3 group">
             <img
-              src="/assets/logo.svg"
+              src="/assets/logo.png"
               alt="ASOALIDISU Logo"
               className="h-10 w-auto md:h-12 object-contain"
               onError={(e) => {

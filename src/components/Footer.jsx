@@ -10,9 +10,9 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex items-center gap-3">
             <img
-              src="/assets/logo.svg"
+              src="/assets/logo.png"
               alt="ASOALIDISU Logo"
-              className="h-10 w-auto object-contain brightness-0 invert"
+              className="h-10 w-auto object-contain"
               onError={(e) => {
                 e.target.style.display = 'none'
               }}
