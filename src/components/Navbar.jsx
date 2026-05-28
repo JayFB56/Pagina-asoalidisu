@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
 
 const NAV_LINKS = [
-  { label: 'Nosotros', href: '#nosotros' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Nosotros', id: 'nosotros' },
+  { label: 'Servicios', id: 'servicios' },
+  { label: 'Contacto', id: 'contacto' },
 ]
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -28,9 +31,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <img
-              src="/assets/logo.png"
+              src="./assets/logo.png"
               alt="ASOALIDISU Logo"
               className="h-10 w-auto md:h-12 object-contain"
               onError={(e) => {
@@ -41,26 +44,46 @@ export default function Navbar() {
             <span className="hidden sm:block text-xl font-bold text-brown-700 group-hover:text-primary-600 transition-colors">
               ASOALIDISU
             </span>
-          </a>
+          </Link>
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.map((link) =>
+              isHome ? (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  className="text-sm font-medium text-brown-600 hover:text-primary-500 transition-colors"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.id}
+                  to="/"
+                  className="text-sm font-medium text-brown-600 hover:text-primary-500 transition-colors"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
+            {isHome ? (
               <a
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-brown-600 hover:text-primary-500 transition-colors"
+                href="#contacto"
+                className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-md hover:shadow-lg"
               >
-                {link.label}
+                <Phone size={16} />
+                Contáctanos
               </a>
-            ))}
-            <a
-              href="#contacto"
-              className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-md hover:shadow-lg"
-            >
-              <Phone size={16} />
-              Contáctanos
-            </a>
+            ) : (
+              <Link
+                to="/"
+                className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-md hover:shadow-lg"
+              >
+                <Phone size={16} />
+                Contáctanos
+              </Link>
+            )}
           </div>
 
           {/* Mobile toggle */}
@@ -81,23 +104,44 @@ export default function Navbar() {
         }`}
       >
         <div className="px-4 py-4 space-y-3 bg-white border-t border-gray-100">
-          {NAV_LINKS.map((link) => (
+          {NAV_LINKS.map((link) =>
+            isHome ? (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                onClick={() => setIsOpen(false)}
+                className="block text-sm font-medium text-brown-600 hover:text-primary-500 transition-colors py-2"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.id}
+                to="/"
+                onClick={() => setIsOpen(false)}
+                className="block text-sm font-medium text-brown-600 hover:text-primary-500 transition-colors py-2"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
+          {isHome ? (
             <a
-              key={link.href}
-              href={link.href}
+              href="#contacto"
               onClick={() => setIsOpen(false)}
-              className="block text-sm font-medium text-brown-600 hover:text-primary-500 transition-colors py-2"
+              className="block w-full text-center bg-primary-500 hover:bg-primary-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
             >
-              {link.label}
+              Contáctanos
             </a>
-          ))}
-          <a
-            href="#contacto"
-            onClick={() => setIsOpen(false)}
-            className="block w-full text-center bg-primary-500 hover:bg-primary-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
-          >
-            Contáctanos
-          </a>
+          ) : (
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className="block w-full text-center bg-primary-500 hover:bg-primary-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
+            >
+              Contáctanos
+            </Link>
+          )}
         </div>
       </div>
     </nav>

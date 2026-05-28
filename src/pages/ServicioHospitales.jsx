@@ -145,7 +145,8 @@ export default function ServicioHospitales() {
             Contáctanos y descubre cómo podemos ayudarte a brindar una alimentación de calidad.
           </p>
           <Link
-            to="/#contacto"
+            to="/"
+            onClick={() => setTimeout(() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' }), 100)}
             className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-7 py-3.5 rounded-xl text-base font-semibold transition-all shadow-lg hover:shadow-xl"
           >
             Contáctanos
